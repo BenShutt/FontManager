@@ -9,8 +9,8 @@
 import Foundation
 import FontManager
 
-/// Map a `FontPropertyListKey (String)` to a `PreferredFont`
-///
+/// Map a `FontPropertyListKey` to a `PreferredFont`
+/// Use `rawValue (String)` so property list writes the keys as expected.
 typealias PreferredFontMap = [String : PreferredFont]
 
 final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
