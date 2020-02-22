@@ -12,16 +12,17 @@ CLONE_URL=https://github.com/BenCShutt/FontManager.git
 # Name of the app to run
 APP_NAME=FontManagerApp
 
-# Get the directory of the script file
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SCRIPT_DIRECTORY=${DIR}
-
 # Base directory
-PWD=$(pwd)
-BASE_DIRECTORY=${PWD}
+BASE_DIRECTORY="$(pwd)"
+
+# Directory to download into and work in, this will be removed in the clean
+RUN_DIRECTORY_NAME=FMFiles
+
+# Branch to checkout after cloning
+BRANCH_NAME=master
 
 # Directory to clone into
-CLONE_DIRECTORY=${BASE_DIRECTORY}/FMFiles
+CLONE_DIRECTORY=${BASE_DIRECTORY}/${RUN_DIRECTORY_NAME}
 
 # Handle cases when there are no matching files
 shopt -s nullglob
@@ -76,7 +77,8 @@ cleanup
 # Download the files needed
 git clone ${CLONE_URL} ${CLONE_DIRECTORY}
 cd ${CLONE_DIRECTORY}
-git checkout develop
+git checkout ${BRANCH_NAME}
 cd ${APP_NAME}
 
+# Run the app now it's downloaded! This will handle the rest
 swift run ${APP_NAME} ${FONT_DIRECTORY}
