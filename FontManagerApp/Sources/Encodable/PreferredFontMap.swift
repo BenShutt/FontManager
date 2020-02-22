@@ -9,8 +9,9 @@
 import Foundation
 import FontManager
 
-/// Map a `FontPropertyListKey` to a `PreferredFont`
-typealias PreferredFontMap = [FontPropertyListKey : PreferredFont]
+/// Map a `FontPropertyListKey (String)` to a `PreferredFont`
+///
+typealias PreferredFontMap = [String : PreferredFont]
 
 final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
     
@@ -27,7 +28,7 @@ final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
             let expected = $0.expectedFontName(fontName: directory.fontName)
             let url = try directory.find(font: expected)
             let fontName = url.filenameWithoutExtension
-            return ($0, PreferredFont(fontName: fontName, fontSize: $0.fontSize))
+            return ($0.rawValue, PreferredFont(fontName: fontName, fontSize: $0.fontSize))
         })
     }
 }
