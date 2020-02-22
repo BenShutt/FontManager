@@ -6,7 +6,7 @@
 //  Copyright © 2019 Ben Shutt. All rights reserved.
 //
 
-#if iOS
+#if os(iOS)
 import UIKit
 
 /// Font `Dictionary` mapping font styles to `PreferredFont`s

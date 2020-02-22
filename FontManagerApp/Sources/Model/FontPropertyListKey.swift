@@ -41,13 +41,13 @@ enum FontPropertyListKey: String, CaseIterable, Codable {
     /// Default style
     var style: FontStyle {
         switch self {
-        case .UICTFontTextStyleTitle0: return .light
-        case .UICTFontTextStyleTitle1: return .light
-        case .UICTFontTextStyleTitle2: return .light
-        case .UICTFontTextStyleTitle3: return .light
+        case .UICTFontTextStyleTitle0: return .bold
+        case .UICTFontTextStyleTitle1: return .bold
+        case .UICTFontTextStyleTitle2: return .bold
+        case .UICTFontTextStyleTitle3: return .bold
         case .UICTFontTextStyleHeadline: return .bold
-        case .UICTFontTextStyleSubhead: return .light
-        case .UICTFontTextStyleBody: return .light
+        case .UICTFontTextStyleSubhead: return .semiBold
+        case .UICTFontTextStyleBody: return .regular
         case .UICTFontTextStyleCallout: return .light
         case .UICTFontTextStyleFootnote: return .light
         case .UICTFontTextStyleCaption1: return .light
