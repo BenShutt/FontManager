@@ -18,9 +18,6 @@ BASE_DIRECTORY="$(pwd)"
 # Directory to download into and work in, this will be removed in the clean
 RUN_DIRECTORY_NAME=FMFiles
 
-# Branch to checkout after cloning
-BRANCH_NAME=master
-
 # Directory to clone into
 CLONE_DIRECTORY=${BASE_DIRECTORY}/${RUN_DIRECTORY_NAME}
 
@@ -76,9 +73,7 @@ cleanup
 
 # Download the files needed
 git clone ${CLONE_URL} ${CLONE_DIRECTORY}
-cd ${CLONE_DIRECTORY}
-git checkout ${BRANCH_NAME}
-cd ${APP_NAME}
+cd ${CLONE_DIRECTORY}/${APP_NAME}
 
 # Run the app now it's downloaded! This will handle the rest
 swift run ${APP_NAME} ${FONT_DIRECTORY}
