@@ -26,3 +26,15 @@ public struct PreferredFont: Codable {
         self.fontSize = fontSize
     }
 }
+
+#if os(iOS)
+import UIKit
+
+extension PreferredFont {
+    
+    /// `PreferredFont` to `Font`
+    var font: UIFont? {
+        return UIFont(name: fontName, size: CGFloat(fontSize))
+    }
+}
+#endif

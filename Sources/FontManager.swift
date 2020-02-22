@@ -92,12 +92,11 @@ public final class FontManager {
     public func font(forTextStyle textStyle: UIFont.TextStyle) -> UIFont {
         guard #available(iOS 11, *),
             let preferredFont = fontMap?[textStyle.rawValue],
-            let font = UIFont(name: preferredFont.fontName, size: CGFloat(preferredFont.fontSize)) else {
+            let font = preferredFont.font else {
                 return UIFont.preferredFont(forTextStyle: textStyle)
         }
-
-        let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
-        return fontMetrics.scaledFont(for: font)
+        
+        return UIFont.scaledFont(for: font, textStyle: textStyle)
     }
 }
 #endif

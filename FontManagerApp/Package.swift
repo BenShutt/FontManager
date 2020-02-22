@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "FontManagerApp",
+    platforms: [
+        .macOS(.v10_12)
+    ],
     dependencies: [
         .package(path: "..")
     ],
