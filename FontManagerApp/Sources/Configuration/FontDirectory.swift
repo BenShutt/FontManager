@@ -95,7 +95,7 @@ struct FontDirectory {
         let filename = font.suffixingIfRequired(extn)
         
         let url = fontDirectory.appendingPathComponent(filename)
-        if let file = fontFiles.first(where: { $0 == url }) {
+        if let file = fontFiles.first(where: { $0.path.lowercased() == url.path.lowercased() }) {
             return file
         }
         
