@@ -3,17 +3,25 @@
 # Font file extension
 EXTENSION=ttf
 
-# Directory to run process in. 
-# WARNING: This will be deleted when the process starts, so ensure there are no
-# other directories with this name you want to keep!
-RUN_DIRECTORY=swiftFontManager
+# URL to clone
+CLONE_URL=https://github.com/BenCShutt/FontManager.git
+
+# Name of the app to run
+APP_NAME=FontManagerApp
+
+# Get the directory of the script file
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+SCRIPT_DIRECTORY=${DIR}
+
+# Base directory
+PWD=$(pwd)
+BASE_DIRECTORY=${PWD}
+
+# Directory to clone into
+CLONE_DIRECTORY=${BASE_DIRECTORY}/${APP_NAME}
 
 # Handle cases when there are no matching files
 shopt -s nullglob
-
-# Get the directory of the script file
-PWD="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-SCRIPT_DIRECTORY=${PWD}
 
 # Get directory of input
 read -p "Enter font directory path: " FONT_DIRECTORY
@@ -39,23 +47,19 @@ done
 
 # Prepare clean up
 function cleanup {
-    rm -rf ${SCRIPT_DIRECTORY}/${RUN_DIRECTORY}
+    rm -rf ${CLONE_DIRECTORY}
 }
 
 trap cleanup EXIT
 
 # Clean and recreate
 cleanup
-mkdir -p ${RUN_DIRECTORY}
-
-# Move into it
-cd ${RUN_DIRECTORY}
 
 # Download the files needed
-echo "TODO: Get from Github"
+git clone ${CLONE_URL} ${CLONE_DIRECTORY}
+cd ${CLONE_DIRECTORY}/${APP_NAME}
+
+swift run ${APP_NAME} ${FONT_DIRECTORY}
 
 # Finally clean up
-cd ..
 cleanup
-
-
