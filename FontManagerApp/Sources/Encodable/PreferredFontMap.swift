@@ -31,13 +31,3 @@ final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
         })
     }
 }
-
-// MARK: - Extension
-
-extension URL {
-    
-    /// Delete the path extension and get the last path component
-    var filenameWithoutExtension: String {
-        return deletingPathExtension().lastPathComponent
-    }
-}

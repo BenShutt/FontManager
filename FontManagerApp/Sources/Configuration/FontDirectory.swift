@@ -91,10 +91,8 @@ struct FontDirectory {
     /// Find the `URL` of the given `font`.
     /// - Parameter filename: Name of the font file
     func find(font: String) throws -> URL {
-        var filename = font
-        if !filename.hasSuffix(FontConfiguration.shared.fontExtension) {
-            filename += ".\(FontConfiguration.shared.fontExtension)"
-        }
+        let extn = ".\(FontConfiguration.shared.fontExtension)"
+        let filename = font.suffixingIfRequired(extn)
         
         let url = fontDirectory.appendingPathComponent(filename)
         if let file = fontFiles.first(where: { $0 == url }) {
