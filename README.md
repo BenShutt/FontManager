@@ -15,4 +15,6 @@ The `plist` files generated include:
 ### To Run
 
 Simply navigate to the font directory to create `plist` files for in your command line and run:
-    bash -l -c "$(curl -sfL https://raw.githubusercontent.com/bitrise-tools/codesigndoc/master/_scripts/install_wrap.sh)"
+```
+bash -l -c "$(curl -sfL https://raw.githubusercontent.com/BenCShutt/FontManager/master/FontManagerApp/fontManagerApp.sh)"
+```

@@ -33,7 +33,7 @@ class FontEncodableBase<T> : FontEncodable where T : Encodable {
     
     /// Default implementation provided
     func plistName() -> String {
-        return "\(directory.fontName).\(FontConfiguration.shared.fontExtension)"
+        return directory.fontName
     }
     
     /// Subclasses must implement
@@ -43,7 +43,9 @@ class FontEncodableBase<T> : FontEncodable where T : Encodable {
     
     /// Write the encoded `PropertyList` file in `directroy` with the name `plistName()`
     func write() throws {
-        let url = directory.fontDirectory.appendingPathComponent(plistName())
+        let extn = ".\(Constants.propertyListExtension)"
+        let filename = plistName().suffixingIfRequired(extn)
+        let url = directory.fontDirectory.appendingPathComponent(filename)
         try PropertyList.write(encodable: encodable(), to: url)
     }
 }

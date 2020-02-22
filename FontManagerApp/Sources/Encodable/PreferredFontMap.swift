@@ -10,7 +10,8 @@ import Foundation
 import FontManager
 
 /// Map a `FontPropertyListKey` to a `PreferredFont`
-typealias PreferredFontMap = [FontPropertyListKey : PreferredFont]
+/// Use `rawValue (String)` so property list writes the keys as expected.
+typealias PreferredFontMap = [String : PreferredFont]
 
 final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
     
@@ -27,17 +28,7 @@ final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
             let expected = $0.expectedFontName(fontName: directory.fontName)
             let url = try directory.find(font: expected)
             let fontName = url.filenameWithoutExtension
-            return ($0, PreferredFont(fontName: fontName, fontSize: $0.fontSize))
+            return ($0.rawValue, PreferredFont(fontName: fontName, fontSize: $0.fontSize))
         })
-    }
-}
-
-// MARK: - Extension
-
-extension URL {
-    
-    /// Delete the path extension and get the last path component
-    var filenameWithoutExtension: String {
-        return deletingPathExtension().lastPathComponent
     }
 }
