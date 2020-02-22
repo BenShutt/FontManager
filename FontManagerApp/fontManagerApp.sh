@@ -18,7 +18,7 @@ PWD=$(pwd)
 BASE_DIRECTORY=${PWD}
 
 # Directory to clone into
-CLONE_DIRECTORY=${BASE_DIRECTORY}/${APP_NAME}
+CLONE_DIRECTORY=${BASE_DIRECTORY}/FMFiles
 
 # Handle cases when there are no matching files
 shopt -s nullglob
@@ -47,6 +47,7 @@ done
 
 # Prepare clean up
 function cleanup {
+    echo "Cleaning"
     rm -rf ${CLONE_DIRECTORY}
 }
 
@@ -57,9 +58,10 @@ cleanup
 
 # Download the files needed
 git clone ${CLONE_URL} ${CLONE_DIRECTORY}
-cd ${CLONE_DIRECTORY}/${APP_NAME}
+cd ${CLONE_DIRECTORY}
+git checkout develop
+cd ${APP_NAME}
+pwd
 
 swift run ${APP_NAME} ${FONT_DIRECTORY}
 
-# Finally clean up
-cleanup

@@ -15,16 +15,16 @@ enum FontDirectoryError: Error {
     case directoryNotProvided
     
     /// Directory provided either doesn't exist
-    case directoryNotFound
+    case directoryNotFound(url: URL)
     
     /// File at the provided path is not a directory
-    case fileNotDirectory
+    case fileNotDirectory(url: URL)
     
     /// Directory provided doesn't contain any font files
-    case noFontFiles
+    case noFontFiles(url: URL)
     
     /// When looking for a specific font by name but that font can not be found
-    case fontNotFound
+    case fontNotFound(filename: String)
 }
 
 /// Intialize the app by acquiring and validating the font directory
@@ -37,28 +37,35 @@ struct FontDirectory {
     let fontFiles: [URL]
     
     /// Initialize `FontConfiguration`.
-    /// Will check the command line arguments for a given font directory path and
-    /// ensures we can process it.
+    /// Get font dirctory file path from the command line arguments
     init() throws {
-        let fm = FileManager.default
-        
         // Check for a command line argument
         guard CommandLine.arguments.count > 1 else {
             throw FontDirectoryError.directoryNotProvided
         }
-
+        
+        try self.init(path: CommandLine.arguments[1])
+    }
+    
+    /// Initialize `FontConfiguration` with the given `path`.
+    /// Validate the font directory and ensure it contains at least 1 font file.
+    ///
+    /// - Parameter path: File path to font directory
+    init(path: String) throws {
+        let fm = FileManager.default
+        
         // Get a URL reference to the path provided as argument
-        let directory = URL(fileURLWithPath: CommandLine.arguments[1])
+        let directory = URL(fileURLWithPath: path)
 
         // Check the directory at the given path exists
         var isDirectory: ObjCBool = false
         guard fm.fileExists(atPath: directory.path, isDirectory: &isDirectory) else {
-            throw FontDirectoryError.directoryNotFound
+            throw FontDirectoryError.directoryNotFound(url: directory)
         }
         
         // And check it is a directory
         guard isDirectory.boolValue else {
-            throw FontDirectoryError.fileNotDirectory
+            throw FontDirectoryError.fileNotDirectory(url: directory)
         }
         
         // Look for font files in the directory provided
@@ -69,7 +76,7 @@ struct FontDirectory {
         
         // Ensure there is at least 1 font
         guard files.count > 0 else {
-            throw FontDirectoryError.noFontFiles
+            throw FontDirectoryError.noFontFiles(url: directory)
         }
         
         self.fontDirectory = directory
@@ -86,7 +93,7 @@ struct FontDirectory {
     func find(font: String) throws -> URL {
         var filename = font
         if !filename.hasSuffix(FontConfiguration.shared.fontExtension) {
-            filename += FontConfiguration.shared.fontExtension
+            filename += ".\(FontConfiguration.shared.fontExtension)"
         }
         
         let url = fontDirectory.appendingPathComponent(filename)
@@ -98,6 +105,6 @@ struct FontDirectory {
             return fontFiles.first! // Empty checked on init
         }
         
-        throw FontDirectoryError.fontNotFound
+        throw FontDirectoryError.fontNotFound(filename: filename)
     }
 }
