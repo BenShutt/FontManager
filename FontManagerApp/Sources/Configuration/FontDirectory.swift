@@ -99,14 +99,20 @@ struct FontDirectory {
             $0.path.lowercased() == url.path.lowercased()
         }
     
+        // Check to see if the desired font can be found
         if let fontFile = file {
+            // Found desired font!
             return fontFile
         }
         
-        if FontConfiguration.shared.useDefaultFont {
-            return fontFiles.first! // Empty checked on init
+        // Failed to find desired font, fallback on a default if the
+        // configuration permits
+        let useDefault = FontConfiguration.shared.useDefaultFont
+        if useDefault, let fontFile = fontFiles.first {
+            return fontFile
         }
         
+        // Failed to find a font for the given font name
         throw FontDirectoryError.fontNotFound(filename: filename)
     }
 }
