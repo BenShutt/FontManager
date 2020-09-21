@@ -17,17 +17,17 @@ public struct FontConfiguration: Codable {
         FontConfiguration()
     
     /// Font file extensions to use
-    let fontExtension = "ttf"
+    var fontExtension = "ttf"
     
     /// Name of the `PropertyList` file containing list of fonts to add to `Info.plist`
-    let infoFileName = "font-info"
+    var infoFileName = "font-info"
     
     /// Name of the `PropertyList` file containing `PreferredFont` mapping.
     /// `nil` will use the name of the font by default
-    let preferredFontFileName: String? = nil
+    var preferredFontFileName: String? = nil
     
     /// When looking for a font of a specific type and it's prefered type could not be found, use a default
-    let useDefaultFont = false
+    var useDefaultFont = false
 }
 
 // MARK: - Extensions
