@@ -12,9 +12,11 @@ import Foundation
 public struct FontConfiguration: Codable {
     
     /// Attempt to read the configuration file, fallback on the default
-    static var shared: FontConfiguration =
-        (try? PropertyList.read(from: FileManager.default.fontConfigurationURL)) ??
-        FontConfiguration()
+    static var shared: FontConfiguration = {
+        let configURL = FileManager.default.fontConfigurationURL
+        let config: FontConfiguration? = try? PropertyList.read(from: configURL)
+        return config ?? FontConfiguration()
+    }()
     
     /// Font file extensions to use
     var fontExtension = "ttf"
@@ -27,7 +29,7 @@ public struct FontConfiguration: Codable {
     var preferredFontFileName: String? = nil
     
     /// When looking for a font of a specific type and it's prefered type could not be found, use a default
-    var useDefaultFont = false
+    var useDefaultFont = true
 }
 
 // MARK: - Extensions

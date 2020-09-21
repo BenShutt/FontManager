@@ -95,8 +95,12 @@ struct FontDirectory {
         let filename = font.suffixingIfRequired(extn)
         
         let url = fontDirectory.appendingPathComponent(filename)
-        if let file = fontFiles.first(where: { $0.path.lowercased() == url.path.lowercased() }) {
-            return file
+        let file = fontFiles.first {
+            $0.path.lowercased() == url.path.lowercased()
+        }
+    
+        if let fontFile = file {
+            return fontFile
         }
         
         if FontConfiguration.shared.useDefaultFont {
