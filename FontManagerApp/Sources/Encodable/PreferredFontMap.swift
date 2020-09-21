@@ -13,7 +13,8 @@ import FontManager
 /// Use `rawValue (String)` so property list writes the keys as expected.
 typealias PreferredFontMap = [String : PreferredFont]
 
-final class PreferredFontMapping : FontEncodableBase<PreferredFontMap> {
+/// Write a plist file which maps a (preferred) font style to the name of the custom font
+final class PreferredFontMapping: FontEncodableBase<PreferredFontMap> {
     
     /// Use the `FontConfiguration.shared.preferredFontFileName` if defined.
     /// Fallback on name of the font (most common case).

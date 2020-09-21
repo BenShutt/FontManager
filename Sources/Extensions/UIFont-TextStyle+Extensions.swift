@@ -41,7 +41,7 @@ extension UIFont.TextStyle: CustomStringConvertible {
 
 // MARK: - CaseIterable
 
-extension UIFont.TextStyle : CaseIterable {
+extension UIFont.TextStyle: CaseIterable {
     public typealias AllCases = [UIFont.TextStyle]
     
     public static var allCases: [UIFont.TextStyle] {

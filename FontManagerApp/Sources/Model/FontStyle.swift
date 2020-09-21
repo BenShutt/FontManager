@@ -23,7 +23,7 @@ enum FontStyle: String {
 
 // MARK: - CustomStringConvertible
 
-extension FontStyle : CustomStringConvertible {
+extension FontStyle: CustomStringConvertible {
     
     var description: String {
         return rawValue.capitalized // first character
