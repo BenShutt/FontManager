@@ -10,7 +10,7 @@ import Foundation
 
 /// Methods that should be implemented in a subclass of `FontEncodable`
 protocol FontEncodable {
-    associatedtype E : Encodable
+    associatedtype E: Encodable
     
     /// Name for the `PropertyList` file to write to.
     func plistName() -> String
@@ -19,7 +19,7 @@ protocol FontEncodable {
     func encodable() throws -> E
 }
 
-class FontEncodableBase<T> : FontEncodable where T : Encodable {
+class FontEncodableBase<T>: FontEncodable where T: Encodable {
     typealias E = T
     
     /// `FontDirectory` passed on initializer

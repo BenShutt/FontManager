@@ -20,14 +20,14 @@ final class PropertyList {
     
     /// Encode `encodable` into `PropertyList` data and write to the given `url`.
     /// - Parameter url: `URL` to write to
-    static func write<T>(encodable: T, to url: URL) throws where T : Encodable {
+    static func write<T>(encodable: T, to url: URL) throws where T: Encodable {
         let data = try PropertyListEncoder().encode(encodable)
         try data.write(to: url, options: .atomicWrite)
     }
     
     /// Decode `T` from`PropertyList` data at the given `url` and return an instance of `T`.
     /// - Parameter url: `URL` to read from
-    static func read<T>(from url: URL) throws -> T where T : Decodable {
+    static func read<T>(from url: URL) throws -> T where T: Decodable {
         guard FileManager.default.fileExists(atPath: url.path) else {
             throw PropertyListError.fileNotFound
         }

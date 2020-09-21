@@ -8,6 +8,6 @@
 import Foundation
 import FontManager
 
-enum Fonts : String, CustomFont {
+enum Fonts: String, CustomFont {
     case openSans = "OpenSans"
 }
