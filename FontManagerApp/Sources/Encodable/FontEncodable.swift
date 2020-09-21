@@ -19,6 +19,8 @@ protocol FontEncodable {
     func encodable() throws -> E
 }
 
+/// A class that given a `FontDirectory` can write a plist file via encoding
+/// an `Encodable` `T`
 class FontEncodableBase<T>: FontEncodable where T: Encodable {
     typealias E = T
     
