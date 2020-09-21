@@ -12,22 +12,24 @@ import Foundation
 public struct FontConfiguration: Codable {
     
     /// Attempt to read the configuration file, fallback on the default
-    static var shared: FontConfiguration =
-        (try? PropertyList.read(from: FileManager.default.fontConfigurationURL)) ??
-        FontConfiguration()
+    static var shared: FontConfiguration = {
+        let configURL = FileManager.default.fontConfigurationURL
+        let config: FontConfiguration? = try? PropertyList.read(from: configURL)
+        return config ?? FontConfiguration()
+    }()
     
     /// Font file extensions to use
-    let fontExtension = "ttf"
+    var fontExtension = "ttf"
     
     /// Name of the `PropertyList` file containing list of fonts to add to `Info.plist`
-    let infoFileName = "font-info"
+    var infoFileName = "font-info"
     
     /// Name of the `PropertyList` file containing `PreferredFont` mapping.
     /// `nil` will use the name of the font by default
-    let preferredFontFileName: String? = nil
+    var preferredFontFileName: String? = nil
     
     /// When looking for a font of a specific type and it's prefered type could not be found, use a default
-    let useDefaultFont = false
+    var useDefaultFont = true
 }
 
 // MARK: - Extensions

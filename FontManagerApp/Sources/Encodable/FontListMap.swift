@@ -32,6 +32,7 @@ final class FontListEncodable: FontEncodableBase<FontList> {
 /// Map `Info.plist` fonts key to an array of font names
 typealias FontListMap = [String : FontList]
 
+/// Write a plist file which lists all the custom app fonts 
 final class FontListMapping: FontEncodableBase<FontListMap> {
     
     /// See `FontListEncodable`
