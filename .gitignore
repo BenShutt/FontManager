@@ -130,7 +130,7 @@ Dependencies/
 ### SwiftPackageManager ###
 Packages
 xcuserdata
-*.xcodeproj
+#*.xcodeproj # This one has been manually removed from the automated .gitignore generator
 
 
 ### Vim ###
