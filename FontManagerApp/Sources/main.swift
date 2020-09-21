@@ -1,7 +1,7 @@
 import Foundation
 
 do {
-    
+
     // Initialize the app, validating the font directory
     let directory = try FontDirectory()
     
@@ -13,9 +13,9 @@ do {
     
     // Success!
     Console.write("[SUCCESS] plist files written successfully")
+
 } catch {
-    
+
     // Failure!
     Console.write("[FAILURE] An error occured: \(error)")
 }
-
