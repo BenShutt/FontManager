@@ -6,17 +6,20 @@ Easily manage a consistent global font in an iOS app, mapping `UIFont.TextStyle`
 
 ### Example
 
-```
+```swift
 // Define a global (custom) font
 Font.fontManager = FontManager(fontName: "OpenSans")
 
-// Use the font for different text styles throughout the app  
+// Get the font for a given text style  
 label.font = Font.font(for: .body)
+
+// Get the font for a given size and weight  
+label.font = Font.font(ofSize: 21, weight: .bold)
 ```
 
 ### Installation
 
-For this to work a `{fontName}.plist` file is required to be added to the `main` `Bundle`.
+For preferred font for text styles to work a `{fontName}.plist` file is required to be added to the `main` `Bundle`.
 This maps `UIFont.TextStyle`s to `PreferredFont`s and thus a `UIFont`.
 To automatically generate this `plist` file see [App](#App)
 
@@ -32,7 +35,7 @@ The `plist` files which are generated include:
 ### How to run
 
 From the command line: navigate to the font directory you would like to create `plist` files for, and simply execute:
-```
+```bash
 bash -l -c "$(curl -sfL https://raw.githubusercontent.com/BenCShutt/FontManager/master/FontManagerApp/fontManagerApp.sh)"
 ```
 The `plist` files will be written to the directory where the script is executed.
