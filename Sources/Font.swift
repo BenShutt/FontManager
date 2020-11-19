@@ -9,11 +9,10 @@
 #if os(iOS)
 import UIKit
 
-/// Manage app fonts
-@available(iOS 11, *) // force 11, some functionality could be included
+/// Manage global app fonts
 public final class Font {
     
-    /// The selected default `FontManager`
+    /// The selected shared `FontManager` instance.
     public static var fontManager: FontManager?
     
     // MARK: - Helper
@@ -22,35 +21,43 @@ public final class Font {
     /// Use the `default` `FontManager`
     ///
     /// - Parameter textStyle: `UIFont.TextStyle` of the font
-    public static func font(for textStyle: UIFont.TextStyle) -> UIFont {
+    public static func font(forTextStyle textStyle: UIFont.TextStyle) -> UIFont {
         return fontManager?.font(forTextStyle: textStyle) ??
-            UIFont.scaledFont(for: textStyle)
+            UIFont.scaledPreferredFont(forTextStyle: textStyle)
     }
     
     /// `UIFont` for a given `weight` and `size` based on `fontManager`
     /// Return a default if not found
     ///
     /// - Parameters:
-    ///   - weight: `UIFont.Weight` of the `UIFont`
     ///   - size: `CGFloat` size of font
-    public static func font(for weight: UIFont.Weight, size: CGFloat) -> UIFont {
-        if let fontName = fontManager?.fontName,
-            let font = UIFont.scaledFont(name: fontName, weight: weight, size: size) {
-                return font
+    ///   - weight: `UIFont.Weight` of the `UIFont`
+    public static func font(
+        ofSize size: CGFloat,
+        weight: UIFont.Weight
+    ) -> UIFont {
+        guard
+            let fontName = fontManager?.fontName,
+            let font = UIFont.scaledFont(name: fontName, weight: weight, size: size)
+        else {
+            return UIFont.systemFont(ofSize: size, weight: weight).scaled()
         }
-        
-        return UIFont.systemFont(ofSize: size, weight: weight).scaled()
+
+        return font
     }
     
     /// `UIFont` for a given `size` based on `fontManager`, return a default if not found
     /// - Parameter size: `CGFloat` size of font
-    public static func font(for size: CGFloat) -> UIFont {
-        if let fontName = fontManager?.fontName,
-            let font = UIFont.scaledFont(name: fontName, size: size) {
-                return font
+    public static func font(ofSize size: CGFloat) -> UIFont {
+        guard
+            let fontName = fontManager?.fontName,
+            let font = UIFont.scaledFont(name: fontName, size: size)
+        else {
+            return UIFont.systemFont(ofSize: size).scaled()
         }
         
-        return UIFont.systemFont(ofSize: size).scaled()
+        return font
     }
 }
+
 #endif

@@ -51,7 +51,7 @@ public typealias PreferredFontMap = [UIFont.TextStyle.RawValue: PreferredFont]
 /// Ref:  https://github.com/kharrison/CodeExamples/tree/master/ScaledFont
 public final class FontManager {
 
-    /// The preferred font name the `FontManager` to Initialize with
+    /// The preferred font name the `FontManager` to initialize with
     public let fontName: String
     
     /// `PreferredFontMap` read from `PropertyList`
@@ -92,11 +92,13 @@ public final class FontManager {
     public func font(forTextStyle textStyle: UIFont.TextStyle) -> UIFont {
         guard #available(iOS 11, *),
             let preferredFont = fontMap?[textStyle.rawValue],
-            let font = preferredFont.font else {
-                return UIFont.preferredFont(forTextStyle: textStyle)
+            let font = preferredFont.font
+        else {
+            return UIFont.preferredFont(forTextStyle: textStyle)
         }
         
-        return UIFont.scaledFont(for: font, textStyle: textStyle)
+        return UIFont.scaledFont(font, forTextStyle: textStyle)
     }
 }
+
 #endif

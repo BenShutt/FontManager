@@ -41,7 +41,7 @@ class FontsTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         let textStyle = textStyles[indexPath.row]
         cell.textLabel?.text = textStyle.description
-        cell.textLabel?.font = Font.font(for: textStyle)
+        cell.textLabel?.font = Font.font(forTextStyle: textStyle)
         
         return cell
     }

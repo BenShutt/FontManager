@@ -8,7 +8,6 @@
 #if os(iOS)
 import UIKit
 
-@available(iOS 11, *)
 public extension UIFont {
     
     /// Create a default `UIFont` name from the given `font` and `weight`.
@@ -32,7 +31,11 @@ public extension UIFont {
     ///   - name: Name of the `UIFont`
     ///   - weight: A `UIFont.Weight`
     ///   - size: Size of the `UIFont`
-    static func scaledFont(name: String, weight: UIFont.Weight, size: CGFloat) -> UIFont? {
+    static func scaledFont(
+        name: String,
+        weight: UIFont.Weight,
+        size: CGFloat
+    ) -> UIFont? {
         let fontName = weight.fontName(name)
         return scaledFont(name: fontName, size: size)
     }
@@ -50,28 +53,28 @@ public extension UIFont {
     func scaled() -> UIFont {
         return UIFontMetrics.default.scaledFont(for: self)
     }
-}
 
-// MARK: - UIFont.TextStyle
+    // MARK: - UIFont.TextStyle
 
-@available(iOS 11, *)
-public extension UIFont {
-    
-    /// Scaled `UIFont` for the given `textStyle`
+    /// Scaled preferred `UIFont` for the given `textStyle`
     ///
     /// - Parameter textStyle: `UIFont.TextStyle`
-    
-    static func scaledFont(for textStyle: UIFont.TextStyle) -> UIFont {
+    static func scaledPreferredFont(
+        forTextStyle textStyle: UIFont.TextStyle
+    ) -> UIFont {
         let font = UIFont.preferredFont(forTextStyle: textStyle)
-        return scaledFont(for: font, textStyle: textStyle)
+        return scaledFont(font, forTextStyle: textStyle)
     }
-    
+
     /// Scaled `UIFont` for the given `font` and `textStyle`
     ///
     /// - Parameters:
     ///   - font: `UIFont`
     ///   - textStyle: `UIFont.TextStyle`
-    static func scaledFont(for font: UIFont, textStyle: UIFont.TextStyle) -> UIFont {
+    static func scaledFont(
+        _ font: UIFont,
+        forTextStyle textStyle: UIFont.TextStyle
+    ) -> UIFont {
         let fontMetrics = UIFontMetrics(forTextStyle: textStyle)
         return fontMetrics.scaledFont(for: font)
     }

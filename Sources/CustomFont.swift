@@ -16,6 +16,4 @@ public protocol CustomFont {
 }
 
 extension CustomFont where Self: RawRepresentable, Self.RawValue == String {
-    
 }
-

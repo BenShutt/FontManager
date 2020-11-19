@@ -8,17 +8,17 @@
 #if os(iOS)
 import UIKit
 
-@available(iOS 10, *)
+// MARK: - UIFont.TextStyle + Size
+
 public extension UIFont.TextStyle {
     
     /// Default font size pre accessibility scaling for a given `textStyle`
     ///
     /// - Parameter textStyle: The `UIFont.TextStyle`
     static func defaultSize(_ textStyle: UIFont.TextStyle) -> CGFloat {
-        let traitCollection = UITraitCollection(preferredContentSizeCategory: .large)
         return UIFontDescriptor.preferredFontDescriptor(
             withTextStyle: textStyle,
-            compatibleWith: traitCollection
+            compatibleWith: .default
         ).pointSize
     }
     
@@ -28,10 +28,11 @@ public extension UIFont.TextStyle {
     }
 }
 
-// MARK: - CustomStringConvertible
+// MARK: - UIFont.TextStyle + CustomStringConvertible
 
 extension UIFont.TextStyle: CustomStringConvertible {
-    
+
+    /// Readable name for `UIFont.TextStyle`
     public var description: String {
         let lower = rawValue.lowercased()
         let replaced = lower.replacingOccurrences(of: "uictfonttextstyle", with: "")
@@ -39,42 +40,26 @@ extension UIFont.TextStyle: CustomStringConvertible {
     }
 }
 
-// MARK: - CaseIterable
+// MARK: - UIFont.TextStyle + CaseIterable
 
 extension UIFont.TextStyle: CaseIterable {
     public typealias AllCases = [UIFont.TextStyle]
-    
+
+    /// All known `UIFont.TextStyle`s at time of writing
     public static var allCases: [UIFont.TextStyle] {
-        var textStyles = [UIFont.TextStyle]()
-        
-        if #available(iOS 11, *) {
-            textStyles += [
-                .largeTitle,
-                .title1,
-                .title2,
-                .title3
-            ]
-        }
-        
-        textStyles += [
+        return [
+            .largeTitle,
+            .title1,
+            .title2,
+            .title3,
             .headline,
             .subheadline,
-            .body
-        ]
-        
-        if #available(iOS 9, *) {
-            textStyles += [
-                .callout,
-            ]
-        }
-        
-        textStyles += [
+            .body,
+            .callout,
             .footnote,
             .caption1,
             .caption2
         ]
-        
-        return textStyles
     }
 }
 
