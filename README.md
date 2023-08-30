@@ -1,5 +1,9 @@
 #  FontManager
 
+## Archived
+
+Though the executable may still be useful for generating `Info.plist` key-value pairs, there are better ways now to handle fonts in SwiftUI. This framework is very light-weight so can be easily replaced.
+
 ## Framework
 
 Easily manage a consistent global font in an iOS app, mapping `UIFont.TextStyle`s  to custom `UIFont`s.
